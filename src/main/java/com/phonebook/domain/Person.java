@@ -8,7 +8,7 @@ import java.util.List;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_person")
     private long idPerson;
 
@@ -18,8 +18,15 @@ public class Person {
     @Column(name = "lastname")
     private String lastName;
 
+    public Person() {
+    }
 
-    @OneToMany(mappedBy = "id_person", fetch = FetchType.LAZY)
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private List<Phone> phones;
 
     public long getIdPerson() {

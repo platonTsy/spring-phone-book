@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Phone {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_phone")
     private long idPhone;
 
@@ -16,7 +16,8 @@ public class Phone {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Person id_person;
+    @JoinColumn(name = "id_person")
+    private Person person;
 
     public long getIdPhone() {
         return this.idPhone;
@@ -34,11 +35,11 @@ public class Phone {
         this.number = number;
     }
 
-    public Person getId_person() {
-        return id_person;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setId_person(Person id_person) {
-        this.id_person = id_person;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

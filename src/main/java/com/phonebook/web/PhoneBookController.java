@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
@@ -18,24 +20,21 @@ public class PhoneBookController {
     @Autowired
     private PersonRepository personRepository;
 
-//    @RequestMapping("/")
-//    @Transactional(readOnly = true)
-//    public ModelAndView index() {
-//        List<Person> persons = this.personRepository.findAll();
-//        ModelAndView modelAndView = new ModelAndView("index");
-//        modelAndView.addObject("notes", persons);
-//        return modelAndView;
-//    }
-
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
+    @RequestMapping("/")
+    public ModelAndView home() {
+        return new ModelAndView("index", "allPersons", personRepository.findAll());
     }
 
-    @ModelAttribute("allPersons")
-    @Transactional(readOnly = true)
-    public List<Person> populatePersons(){
-        return personRepository.findAll();
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public void addPerson(@ModelAttribute Person person) {
+        Person personSaved = personRepository.create(person);
+        if(personSaved != null) {
+            home();
+        }
+        showAddView();
     }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showAddView(){ return "add"; }
 
 }

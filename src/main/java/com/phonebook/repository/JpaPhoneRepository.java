@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class JpaPhoneRepository implements TagRepository {
+public class JpaPhoneRepository implements PhoneRepository {
 
     @PersistenceContext
     private EntityManager entityManager;

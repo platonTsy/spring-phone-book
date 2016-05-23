@@ -1,2 +1,21 @@
-insert into person(id_person,firstName,lastName) values (1, 'Vasya', 'Pupkin'), (2, 'Petya', 'Ivanov');
-insert into phone(id_phone, id_person, phone_number) values (1, 1, '0938767363'), (1, 2, '0933547272');
+insert into person(firstName,lastName) values ('Vasya', 'Pupkin');
+insert into person(firstName,lastName) values ('Petya', 'Ivanov');
+insert into person(firstName,lastName) values ('Sasha', 'Bugrov');
+insert into person(firstName,lastName) values ('Ruslan', 'Oboev');
+insert into person(firstName,lastName) values ('Marat', 'Aliev');
+insert into person(firstName,lastName) values ('Huseyn', 'Akbarov');
+insert into person(firstName,lastName) values ('Barbek', 'Chuchmekov');
+
+insert into phone( id_person, phone_number) values (1, '0938767363');
+insert into phone( id_person, phone_number) values (1, '0633546272');
+insert into phone( id_person, phone_number) values (2, '0433543262');
+insert into phone( id_person, phone_number) values (2, '0233549210');
+insert into phone( id_person, phone_number) values (3, '0733547872');
+insert into phone( id_person, phone_number) values (3, '0333545372');
+insert into phone( id_person, phone_number) values (4, '0933549612');
+insert into phone( id_person, phone_number) values (4, '0533547427');
+insert into phone( id_person, phone_number) values (5, '0933520171');
+insert into phone( id_person, phone_number) values ( 5, '0953547464');
+insert into phone( id_person, phone_number) values ( 6, '0923443211');
+insert into phone( id_person, phone_number) values ( 6, '0893354725');
+insert into phone( id_person, phone_number) values ( 7, '0453362626');

@@ -4,7 +4,7 @@ import com.phonebook.domain.Phone;
 
 import java.util.List;
 
-public interface TagRepository {
+public interface PhoneRepository {
 
     List<Phone> findAll();
 

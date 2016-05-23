@@ -2,6 +2,7 @@ package com.phonebook.repository;
 
 import com.phonebook.domain.Person;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,8 +16,24 @@ public class JpaPersonRepository implements PersonRepository {
 
     @Override
     public List<Person> findAll() {
-        return this.entityManager.createQuery("SELECT p FROM Person p", Person.class)
+        return entityManager.createQuery("SELECT p FROM Person p", Person.class)
                 .getResultList();
+    }
+
+    @Transactional
+    @Override
+    public Person create(Person person) {
+        List<Person> personResult = entityManager
+                .createQuery("SELECT p FROM Person p WHERE p.firstName=:fn AND p.lastName=:ln", Person.class)
+                .setParameter("fn", person.getFirstName())
+                .setParameter("ln", person.getLastName())
+                .getResultList();
+        if(personResult.size() > 0){
+
+            return null;
+        }
+        entityManager.persist(person);
+        return person;
     }
 
 }

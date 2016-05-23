@@ -7,5 +7,6 @@ import java.util.List;
 public interface PersonRepository {
 
     List<Person> findAll();
+    Person create(Person person);
 
 }
