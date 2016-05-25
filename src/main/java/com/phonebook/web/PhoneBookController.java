@@ -26,12 +26,12 @@ public class PhoneBookController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addPerson(@ModelAttribute Person person) {
+    public String addPerson(@ModelAttribute Person person) {
         Person personSaved = personRepository.create(person);
         if(personSaved != null) {
-            home();
+            return "index";
         }
-        showAddView();
+        return "add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
