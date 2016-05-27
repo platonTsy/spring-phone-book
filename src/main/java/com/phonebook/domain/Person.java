@@ -1,6 +1,15 @@
 package com.phonebook.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -10,13 +19,21 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_person")
+
     private long idPerson;
 
+    @Size(min = 1, max = 50)
     @Column(name = "firstname")
     private String firstName;
 
+    @Size(min = 1, max = 50)
     @Column(name = "lastname")
     private String lastName;
+
+    @Valid
+    @NotEmpty
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private List<Phone> phones = new ArrayList<>();
 
     public Person() {
     }
@@ -26,8 +43,6 @@ public class Person {
         this.lastName = lastName;
     }
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
-    private List<Phone> phones;
 
     public long getIdPerson() {
         return this.idPerson;

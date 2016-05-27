@@ -4,24 +4,49 @@
     <title>Phone Book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.3.1/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.1/js/tether.min.js"></script>
     <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container">
     <h2 th:text="#{phonebook.applicationName}"/>
-    <form method="post" action="/add">
-        <fieldset class="form-group">
-            <label for="firstname" th:text="#{phonebook.table.column2.title}"/>
-            <input type="text" name="firstName" class="form-control" id="firstname"/>
+    <form method="post" action="#" th:action="@{/add}" th:object="${person}">
+        <fieldset class="input-group" th:class="${#fields.hasErrors('firstName')}? has-error">
+            <label for="firstName" th:text="#{phonebook.addPersonFrom.input.firstName}"/>
+            <input type="text" th:field="*{firstName}" class="form-control"/>
+            <ul th:if="${#fields.hasErrors('firstName')}">
+                <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}" />
+            </ul>
         </fieldset>
-        <fieldset class="form-group">
-            <label for="firstname" th:text="#{phonebook.table.column3.title}"/>
-            <input type="text" name="lastName" class="form-control" id="lastname"/>
+        <fieldset class="input-group" th:class="${#fields.hasErrors('lastName')}? has-error">
+            <label for="lastName" th:text="#{phonebook.addPersonFrom.input.lastName}"/>
+            <input type="text" th:field="*{lastName}" class="form-control"/>
+            <ul th:if="${#fields.hasErrors('lastName')}">
+                <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}" />
+            </ul>
         </fieldset>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" name="addRow" class="form-control" th:text="#{phonebook.addPersonForm.button.addPhone}"/>
+        <table class="table">
+            <tr th:each="row,rowStat : *{phones}" th:class="${#fields.hasErrors('phones[__${rowStat.index}__].number')}? has-error">
+                <td th:text="${rowStat.count}">1</td>
+
+                <td>
+                    <input type="text" th:field="*{phones[__${rowStat.index}__].number}" class="form-control"/>
+                </td>
+                <td>
+                    <button type="submit" name="removeRow" class="btn btn-secondary" th:value="${rowStat.index}" th:text="#{phonebook.addPersonForm.button.removePhone}"/>
+                </td>
+                <td>
+                    <ul th:if="${#fields.hasErrors('phones[__${rowStat.index}__].number')}">
+                        <li th:each="err : ${#fields.errors('phones[__${rowStat.index}__].number')}" th:text="${err}" />
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" name="save" class="btn btn-primary" th:text="#{phonebook.addPersonForm.button.submit}"/>
     </form>
 </div>
 </body>
