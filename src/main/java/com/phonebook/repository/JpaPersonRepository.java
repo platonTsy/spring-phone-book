@@ -29,7 +29,6 @@ public class JpaPersonRepository implements PersonRepository {
                 .setParameter("ln", person.getLastName())
                 .getResultList();
         if(personResult.size() > 0){
-
             return null;
         }
         entityManager.persist(person);
