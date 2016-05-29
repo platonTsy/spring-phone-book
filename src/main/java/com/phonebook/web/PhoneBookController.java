@@ -17,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -45,7 +47,9 @@ public class PhoneBookController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showAddPersonView(Person person){ return "/add"; }
+    public String showAddPersonView(Person person){
+        person.setPhones(Arrays.asList(new Phone()));return "/add";
+    }
 
     @RequestMapping(value="add", params={"addRow"})
     public String addRow(final Person person, final BindingResult bindingResult) {
