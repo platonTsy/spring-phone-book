@@ -1,6 +1,6 @@
 # spring-phone-book
-Phone Book application\n
-Requirements:\n
+<h2>Phone Book application</h2>
+<p>Requirements:</p>
 Set JAVA_HOME to 1.8 version\n
 Install maven with version 3 or higher\n
 Open terminal and cd to project's directory
